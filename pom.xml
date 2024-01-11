@@ -32,8 +32,8 @@
 			<configuration>
 				<cloudHubDeployment>
 					<muleVersion>4.4.0</muleVersion>
-					<username>${env.PLATFORM_USERNAME}</username>
-					<password>${env.PLATFORM_PASSWORD}</password>
+					<username>SP203</username>
+					<password>Pareek16</password>
 					<applicationName>cicd-gitAction</applicationName>
 					<environment>Dev</environment>
 					<workers>1</workers>
