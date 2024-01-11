@@ -21,7 +21,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	"city" : attributes.uriParams.city
 }]]]></http:uri-params>
 		</http:request>
-		<ee:transform doc:name="Transform Message" doc:id="9074c088-7df5-42ab-9390-24aa44dfc706" >
+		<ee:transform doc:name="Transform Messages" doc:id="9074c088-7df5-42ab-9390-24aa44dfc706" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
