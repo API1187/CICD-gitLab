@@ -30,7 +30,8 @@ jobs:
     - name: Upload Artifact
       run: mkdir staging && cp target/*.jar staging
 
-    - name: actions/upload-artifact@v3
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
       with: 
         name: package
         path: staging
