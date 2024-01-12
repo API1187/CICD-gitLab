@@ -19,12 +19,12 @@ jobs:
     - name: Cache Dependencies
       uses: actions/setup-java@v2
       with:
-        java-version: '11'
+        java-version: '8'
         distribution: 'adopt'
         cache: maven
 
     - name: Build with Maven
-      run: mvn -B clean -s .maven/settings.xml
+      run: mvn -B clean package -s .maven/settings.xml
 
     - name: Upload Artifact
       run: mkdir staging && cp target/*.jar staging 
