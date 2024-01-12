@@ -25,15 +25,14 @@ jobs:
         cache: maven
 
     - name: Build with Maven
-      run: mvn clean -B  -s .maven/settings.xml
+      run: mvn -B clean -s .maven/settings.xml
 
     - name: Upload Artifact
       run: mkdir staging && cp target/*.jar staging
-
-    - name: Upload artifact
-      uses: actions/upload-artifact@v3
+      
+    - uses: actions/upload-artifact@v3
       with: 
-        name: package
+        name: Package
         path: staging
 
     - name: Deploy with Maven
