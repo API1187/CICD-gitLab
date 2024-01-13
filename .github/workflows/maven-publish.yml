@@ -47,7 +47,8 @@ jobs:
     - name: Slack Notification
       uses: act10ns/slack@v1
       with: 
-        status: starting
+        status: ${{job.status}}
+        steps: ${{toJson(steps)}}
         channel: '#github-action-poc-1'
         message: Starting Deployment...
       if: always()
