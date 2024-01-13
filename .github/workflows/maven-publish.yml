@@ -20,8 +20,8 @@ jobs:
   buildAndDeploy:
     runs-on: ubuntu-latest
     env:
-      PLATFORM_USERNAME: ${{ secrets.PLATFORM_USERNAME }}
-      PLATFORM_PASSWORD: ${{ secrets.PLATFORM_PASSWORD }}
+      PLATFORM_USERNAME: 0591322cb898480a8b70a8ce7cdeff86
+      PLATFORM_PASSWORD: 9C4Ec344092D44D09112e2d36639C493
       NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
       NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -49,10 +49,10 @@ jobs:
       - name: Deploy To Dev
         if: github.ref == 'refs/heads/feature/cicd-deployment'
         env:
-          # PLATFORM_USERNAME: ${{ secrets.PLATFORM_USERNAME }}
-          # PLATFORM_PASSWORD: ${{ secrets.PLATFORM_PASSWORD }}
-          # NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
-          # NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+          PLATFORM_USERNAME: 0591322cb898480a8b70a8ce7cdeff86
+          PLATFORM_PASSWORD: 9C4Ec344092D44D09112e2d36639C493
+          NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
           # SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           environment: Dev
           name: cicd-deployment-dev
