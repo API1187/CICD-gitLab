@@ -49,7 +49,7 @@ jobs:
       uses: act10ns/slack@v1
       with: 
         status: starting
-        channel: '#github-action-poc'
+        channel: '#github-action-poc-1'
         message: Starting Deployment...
       if: always()
 
