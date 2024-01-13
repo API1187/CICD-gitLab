@@ -1,5 +1,7 @@
-name: cloudhub - build and deploy
+# Successful script
+name: Build the project
 
+# Controls when the workflow will run
 on:
   push:
     branches:
@@ -19,15 +21,6 @@ on:
 jobs:
   buildAndDeploy:
     runs-on: ubuntu-latest
-    env:
-      PLATFORM_USERNAME: ${{ secrets.PLATFORM_USERNAME }}
-      PLATFORM_PASSWORD: ${{ secrets.PLATFORM_PASSWORD }}
-      NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
-      NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-    # SANDBOX_CLIENT_ID: ${{ secrets.SANDBOX_CLIENT_ID }}
-    # SANDBOX_CLIENT_SECRET: ${{ secrets.SANDBOX_CLIENT_SECRET }}
-    # environment: dev
 
     steps:
       - name: checkout Repository
@@ -43,34 +36,30 @@ jobs:
         run: mvn -B clean package -s .maven/settings.xml
 
       - name: Upload Artifact
-        run: mkdir staging && cp target/*.jar staging
+        run: mkdir staging && cp target/*.jar staging 
       - uses: actions/upload-artifact@v2
-        with:
+        with: 
           name: Package
           path: staging
 
+      
 
-      - name: Deploy To Test
+      - name: Deploy To Test 
         if: github.ref == 'refs/heads/feature/cicd-deployment'
         env:
           PLATFORM_USERNAME: ${{ secrets.PLATFORM_USERNAME }}
           PLATFORM_PASSWORD: ${{ secrets.PLATFORM_PASSWORD }}
           NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
           NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          # ORG_ID: ${{ secrets.ORG_ID }}
-          environment: "qa"
-          name: cicd-deployment-test
-          target: "Cloudhub-US-East-2"
-          replicas: "1"
-          cores: "0.1"
-        run: mvn clean -B deploy -DmuleDeploy -s .maven/settings.xml
-
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}            
+          environment: 'Dev'
+          name: 'cicd-dev'
+        run: mvn -B deploy -DmuleDeploy -s .maven/settings.xml
+         
       - name: Slack Notification
         uses: act10ns/slack@v1
-        with:
+        with: 
           status: ${{job.status}}
           steps: ${{toJson(steps)}}
-          channel: "#github-action-poc-1"
-          # message: Starting Deployment...
+          channel: '#github-action-poc-1'
         if: always()
