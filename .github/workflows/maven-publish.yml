@@ -59,7 +59,7 @@ jobs:
           target: "Cloudhub-US-East-2"
           replicas: "1"
           cores: "0.1"
-        run: mvn clean -B deploy -DmuleDeploy -s .maven/settings.xml
+        run: mvn -B deploy -DmuleDeploy -s .maven/settings.xml
 
       - name: Slack Notification
         uses: act10ns/slack@v1
