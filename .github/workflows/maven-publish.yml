@@ -1,7 +1,5 @@
-# Successful script
-name: Build the project
+name: cloudhub - build and deploy
 
-# Controls when the workflow will run
 on:
   push:
     branches:
@@ -24,7 +22,10 @@ jobs:
     env:
       PLATFORM_USERNAME: ${{ secrets.PLATFORM_USERNAME }}
       PLATFORM_PASSWORD: ${{ secrets.PLATFORM_PASSWORD }}
-
+      NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+      NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+  
     steps:
       - name: checkout Repository
         uses: actions/checkout@v2
@@ -39,30 +40,32 @@ jobs:
         run: mvn -B clean package -s .maven/settings.xml
 
       - name: Upload Artifact
-        run: mkdir staging && cp target/*.jar staging 
+        run: mkdir staging && cp target/*.jar staging
       - uses: actions/upload-artifact@v2
-        with: 
+        with:
           name: Package
           path: staging
 
-      
+      - name: Deploy To Test
+        if: github.ref == 'refs/heads/feature/cicd-deployment'
+        env:
+          PLATFORM_USERNAME: ${{ secrets.PLATFORM_USERNAME }}
+          PLATFORM_PASSWORD: ${{ secrets.PLATFORM_PASSWORD }}
+          NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          environment: "Dev"
+          name: cicd-deployment-dev
+          target: "Cloudhub-US-East-2"
+          replicas: "1"
+          cores: "0.1"
+        run: mvn clean -B deploy -DmuleDeploy -s .maven/settings.xml
 
-      - name: Deploy To Test 
-        # if: github.ref == 'refs/heads/feature/cicd-deployment'
-        # env:
-        #   PLATFORM_USERNAME: ${{ secrets.PLATFORM_USERNAME }}
-        #   PLATFORM_PASSWORD: ${{ secrets.PLATFORM_PASSWORD }}
-        #   NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
-        #   NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
-        #   SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}            
-        #   environment: 'Dev'
-        #   name: 'cicd-dev'
-        run: mvn -B deploy -DmuleDeploy -s .maven/settings.xml
-         
       - name: Slack Notification
         uses: act10ns/slack@v1
-        with: 
+        with:
           status: ${{job.status}}
           steps: ${{toJson(steps)}}
-          channel: '#github-action-poc-1'
+          channel: "#github-action-poc-1"
+          # message: Starting Deployment...
         if: always()
