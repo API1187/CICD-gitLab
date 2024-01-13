@@ -61,8 +61,8 @@ jobs:
         NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         # ORG_ID: ${{ secrets.ORG_ID }}
-        environment: "qa"
-        name: cicd-deployment-test
+        environment: "Dev"
+        name: cicd-deployment-dev
         target: "Cloudhub-US-East-2"
         replicas: "1"
         cores: "0.1"
