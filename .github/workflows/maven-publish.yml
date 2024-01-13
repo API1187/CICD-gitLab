@@ -1,5 +1,4 @@
-name: cloudhub - build and deploy
-
+cloudhub - build and deploy
 on:
   push:
     branches:
@@ -39,15 +38,15 @@ jobs:
         distribution: 'adopt'
         cache: maven
 
-    - name: Build with Maven
-      run: mvn -B clean package -s .maven/settings.xml
+    # - name: Build with Maven
+    #   run: mvn -B clean package -s .maven/settings.xml
 
-    - name: Upload Artifact
-      run: mkdir staging && cp target/*.jar staging 
-    - uses: actions/upload-artifact@v2
-      with: 
-        name: Package
-        path: staging
+    # - name: Upload Artifact
+    #   run: mkdir staging && cp target/*.jar staging 
+    # - uses: actions/upload-artifact@v2
+    #   with: 
+    #     name: Package
+    #     path: staging
 
     # - name: Deploy with Maven
     #   run: mvn -B deploy -DmuleDeploy -s .maven/settings.xml
@@ -66,7 +65,18 @@ jobs:
         target: "Cloudhub-US-East-2"
         replicas: "1"
         cores: "0.1"
-      run: mvn clean -B deploy -DmuleDeploy -s .maven/settings.xml
+      steps:
+        - name: Build with Maven
+          run: mvn -B clean package -s .maven/settings.xml
+
+        - name: Upload Artifact
+          run: mkdir staging && cp target/*.jar staging 
+        - uses: actions/upload-artifact@v2
+          with: 
+            name: Package
+            path: staging
+        - name: Deploy with Maven
+          run: mvn clean -B deploy -DmuleDeploy -s .maven/settings.xml
 
     - name: Slack Notification
       uses: act10ns/slack@v1
