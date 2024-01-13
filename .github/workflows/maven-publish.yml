@@ -4,9 +4,17 @@ on:
   push:
     branches:
       - 'master'
+      - 'main'
+      - 'test'
+      - 'dev'
+      - 'feature/cicd-deployment'
   pull_request:
     branches:
-      - 'master' 
+      - 'master'
+      - 'main'
+      - 'test'
+      - 'dev'
+      - 'feature/cicd-deployment'
 
 jobs:
   buildAndDeploy:
@@ -43,6 +51,19 @@ jobs:
 
     - name: Deploy with Maven
       run: mvn -B deploy -DmuleDeploy -s .maven/settings.xml
+
+    - name: Deploy To Test 
+      if: github.ref == 'refs/heads/feature/cicd-deployment'
+      env:
+        # PLATFORM_USERNAME: ${{ secrets.PLATFORM_USERNAME }}
+        # PLATFORM_PASSWORD: ${{ secrets.PLATFORM_PASSWORD }}
+        ORG_ID: ${{ secrets.ORG_ID }}
+        environment: "qa"
+        name: cicd-deployment-test
+        target: "Cloudhub-US-East-2"
+        replicas: "1"
+        cores: "0.1"
+      run: mvn clean -B deploy -DmuleDeploy -s .maven/settings.xml
 
     - name: Slack Notification
       uses: act10ns/slack@v1
