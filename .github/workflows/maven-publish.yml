@@ -47,11 +47,11 @@ jobs:
         #SANDBOX_CLIENT_ID: ${{ secrets.SANDBOX_CLIENT_ID }}
         #SANDBOX_CLIENT_SECRET: ${{ secrets.SANDBOX_CLIENT_SECRET }}
         
-    - name: slack notification
-      uses: act10ns/slack@v1
-      with:
-       status: ${{ job.status }}
-       steps: ${{ toJson(steps) }}
-       channel: '#github-action-poc'
-       if: always()
+    # - name: slack notification
+    #   uses: act10ns/slack@v1
+    #   with:
+    #    status: ${{ job.status }}
+    #    steps: ${{ toJson(steps) }}
+    #    channel: '#github-action-poc'
+    #    if: always()
    
