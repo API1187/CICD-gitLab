@@ -36,7 +36,13 @@ jobs:
     - name: Deploy with Maven
       run: mvn -B deploy -DmuleDeploy -s .maven/settings.xml
 
-  
+    - name: slack notification
+      uses: act10ns/slack@v1
+      with:
+       status: ${{job.status}}
+       steps: ${{toJson(steps)}}
+       channel: '#github-action-poc'
+       if: always()
 
       env:
         SLACK_WEBHOOK_URL: ${{secrets.SLACK_WEBHOOK_URL}}
@@ -47,13 +53,7 @@ jobs:
         #SANDBOX_CLIENT_ID: ${{ secrets.SANDBOX_CLIENT_ID }}
         #SANDBOX_CLIENT_SECRET: ${{ secrets.SANDBOX_CLIENT_SECRET }}
 
-    - name: slack notification
-      uses: act10ns/slack@v1
-      with:
-       status: ${{job.status}}
-       steps: ${{toJson(steps)}}
-       channel: '#github-action-poc'
-       if: always()
+   
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
   #  - name: Update dependency graph
