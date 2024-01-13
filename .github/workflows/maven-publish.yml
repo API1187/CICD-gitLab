@@ -53,10 +53,6 @@ jobs:
           NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}            
           environment: "qa"
-          name: cicd-deployment-test
-          target: "Cloudhub-US-East-2"
-          replicas: "1"
-          cores: "0.1"
         run: mvn -B deploy -DmuleDeploy -s .maven/settings.xml
          
       - name: Slack Notification
