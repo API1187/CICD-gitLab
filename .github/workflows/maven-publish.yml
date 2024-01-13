@@ -10,8 +10,8 @@ on:
 
 jobs:
   buildAndDeploy:
-
     runs-on: ubuntu-latest
+    environment: dev
 
     steps:
     - name: checkout Repository
