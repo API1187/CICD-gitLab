@@ -27,7 +27,7 @@ jobs:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     # SANDBOX_CLIENT_ID: ${{ secrets.SANDBOX_CLIENT_ID }}
     # SANDBOX_CLIENT_SECRET: ${{ secrets.SANDBOX_CLIENT_SECRET }}
-    environment: dev
+    # environment: dev
 
     steps:
       - name: checkout Repository
