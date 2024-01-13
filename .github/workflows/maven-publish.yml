@@ -22,8 +22,8 @@ jobs:
   buildAndDeploy:
     runs-on: ubuntu-latest
     env:
-        PLATFORM_USERNAME: ${{ secrets.PLATFORM_USERNAME }}
-        PLATFORM_PASSWORD: ${{ secrets.PLATFORM_PASSWORD }}
+      PLATFORM_USERNAME: ${{ secrets.PLATFORM_USERNAME }}
+      PLATFORM_PASSWORD: ${{ secrets.PLATFORM_PASSWORD }}
 
     steps:
       - name: checkout Repository
