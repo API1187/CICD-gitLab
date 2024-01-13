@@ -9,7 +9,7 @@
     <server>
       <id>anypoint-exchange-v2</id>
       <username>~~~Client~~~</username>
-	  <password>${env.PLATFORM_USERNAME}~?~${env.PLATFORM_PASSWORD}</password>
+	  <password>0591322cb898480a8b70a8ce7cdeff86~?~9C4Ec344092D44D09112e2d36639C493</password>
     </server>
   </servers>
   <pluginGroups>
