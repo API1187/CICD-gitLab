@@ -1,4 +1,4 @@
-cloudhub - build and deploy
+name: cloudhub - build and deploy
 on:
   push:
     branches:
