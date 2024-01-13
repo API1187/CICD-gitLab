@@ -27,45 +27,49 @@ jobs:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
   
     steps:
-      - name: checkout Repository
-        uses: actions/checkout@v2
-      - name: Cache Dependencies
-        uses: actions/setup-java@v2
-        with:
-          java-version: "8"
-          distribution: "adopt"
-          cache: maven
+    - name: checkout Repository
+      uses: actions/checkout@v2
+    - name: Cache Dependencies
+      uses: actions/setup-java@v2
+      with:
+        java-version: '8'
+        distribution: 'adopt'
+        cache: maven
 
-      - name: Build with Maven
-        run: mvn -B clean package -s .maven/settings.xml
+    - name: Build with Maven
+      run: mvn -B clean package -s .maven/settings.xml
 
-      - name: Upload Artifact
-        run: mkdir staging && cp target/*.jar staging
-      - uses: actions/upload-artifact@v2
-        with:
-          name: Package
-          path: staging
+    - name: Upload Artifact
+      run: mkdir staging && cp target/*.jar staging 
+    - uses: actions/upload-artifact@v2
+      with: 
+        name: Package
+        path: staging
 
-      - name: Deploy To Test
-        if: github.ref == 'refs/heads/feature/cicd-deployment'
-        env:
-          PLATFORM_USERNAME: ${{ secrets.PLATFORM_USERNAME }}
-          PLATFORM_PASSWORD: ${{ secrets.PLATFORM_PASSWORD }}
-          NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
-          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          environment: "Dev"
-          name: cicd-deployment-dev
-          target: "Cloudhub-US-East-2"
-          replicas: "1"
-          cores: "0.1"
-        run: mvn clean -B deploy -DmuleDeploy -s .maven/settings.xml
+    # - name: Deploy with Maven
+    #   run: mvn -B deploy -DmuleDeploy -s .maven/settings.xml
 
-      - name: Slack Notification
-        uses: act10ns/slack@v1
-        with:
-          status: ${{job.status}}
-          steps: ${{toJson(steps)}}
-          channel: "#github-action-poc-1"
-          # message: Starting Deployment...
-        if: always()
+    - name: Deploy To Test 
+      if: github.ref == 'refs/heads/feature/cicd-deployment'
+      env:
+        PLATFORM_USERNAME: ${{ secrets.PLATFORM_USERNAME }}
+        PLATFORM_PASSWORD: ${{ secrets.PLATFORM_PASSWORD }}
+        NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+        NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        # ORG_ID: ${{ secrets.ORG_ID }}
+        environment: "Dev"
+        name: cicd-deployment-dev
+        target: "Cloudhub-US-East-2"
+        replicas: "1"
+        cores: "0.1"
+      run: mvn clean -B deploy -DmuleDeploy -s .maven/settings.xml
+
+    - name: Slack Notification
+      uses: act10ns/slack@v1
+      with: 
+        status: ${{job.status}}
+        steps: ${{toJson(steps)}}
+        channel: '#github-action-poc-1'
+        # message: Starting Deployment...
+      if: always()
