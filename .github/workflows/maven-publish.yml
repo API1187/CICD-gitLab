@@ -50,7 +50,7 @@ jobs:
         status: ${{job.status}}
         steps: ${{toJson(steps)}}
         channel: '#github-action-poc-1'
-        message: Starting Deployment...
+        # message: Starting Deployment...
       if: always()
 
      
