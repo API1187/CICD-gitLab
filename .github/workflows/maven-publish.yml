@@ -49,14 +49,14 @@ jobs:
         name: Package
         path: staging
 
-    - name: Deploy with Maven
-      run: mvn -B deploy -DmuleDeploy -s .maven/settings.xml
+    # - name: Deploy with Maven
+    #   run: mvn -B deploy -DmuleDeploy -s .maven/settings.xml
 
     - name: Deploy To Test 
       if: github.ref == 'refs/heads/feature/cicd-deployment'
       env:
-        # PLATFORM_USERNAME: ${{ secrets.PLATFORM_USERNAME }}
-        # PLATFORM_PASSWORD: ${{ secrets.PLATFORM_PASSWORD }}
+        PLATFORM_USERNAME: ${{ secrets.PLATFORM_USERNAME }}
+        PLATFORM_PASSWORD: ${{ secrets.PLATFORM_PASSWORD }}
         # ORG_ID: ${{ secrets.ORG_ID }}
         environment: "qa"
         name: cicd-deployment-test
