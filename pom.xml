@@ -32,8 +32,8 @@
 			<configuration>
 				<cloudHubDeployment>
 					<muleVersion>4.4.0</muleVersion>
-					<username>${env.PLATFORM_USERNAME}</username>
-					<password>${env.PLATFORM_PASSWORD}</password>
+					<!-- <username>${env.PLATFORM_USERNAME}</username>
+					<password>${env.PLATFORM_PASSWORD}</password> -->
 					<applicationName>${env.name}</applicationName>
 					<environment>${env.environment}</environment>
 					<workers>1</workers>
