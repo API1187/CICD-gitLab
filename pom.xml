@@ -40,6 +40,7 @@
 					<workerType>MICRO</workerType>
 					<objectStoreV2>true</objectStoreV2>
 					<region>us-east-2</region>
+					<businessGroupId>eb418832-89d6-45f1-ac87-c55085637b71</businessGroupId>
 				</cloudHubDeployment>
 				</configuration>
 			</plugin>
