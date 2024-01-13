@@ -27,7 +27,7 @@ jobs:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         #SANDBOX_CLIENT_ID: ${{ secrets.SANDBOX_CLIENT_ID }}
         #SANDBOX_CLIENT_SECRET: ${{ secrets.SANDBOX_CLIENT_SECRET }}
-    environment: dev
+    # environment: dev
 
     steps:
     - name: checkout Repository
@@ -57,7 +57,7 @@ jobs:
       env:
         # PLATFORM_USERNAME: ${{ secrets.PLATFORM_USERNAME }}
         # PLATFORM_PASSWORD: ${{ secrets.PLATFORM_PASSWORD }}
-        ORG_ID: ${{ secrets.ORG_ID }}
+        # ORG_ID: ${{ secrets.ORG_ID }}
         environment: "qa"
         name: cicd-deployment-test
         target: "Cloudhub-US-East-2"
