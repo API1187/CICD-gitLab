@@ -49,11 +49,11 @@ jobs:
       - name: Deploy To Dev
         if: github.ref == 'refs/heads/feature/cicd-deployment'
         env:
-          PLATFORM_USERNAME: ${{ secrets.PLATFORM_USERNAME }}
-          PLATFORM_PASSWORD: ${{ secrets.PLATFORM_PASSWORD }}
-          NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
-          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          # PLATFORM_USERNAME: ${{ secrets.PLATFORM_USERNAME }}
+          # PLATFORM_PASSWORD: ${{ secrets.PLATFORM_PASSWORD }}
+          # NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+          # NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+          # SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           environment: Dev
           name: cicd-deployment-dev
           target: "Cloudhub-US-East-2"
