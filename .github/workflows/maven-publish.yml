@@ -37,7 +37,7 @@ jobs:
       run: mvn -B deploy -DmuleDeploy -s .maven/settings.xml
 
     - name: slack notification
-      uses: actions/slack@v2
+      uses: actions/slack@v1
       with:
         status: ${{job.status}}
         steps: ${{toJson(steps)}}
