@@ -36,7 +36,16 @@ jobs:
     - name: Deploy with Maven
       run: mvn -B deploy -DmuleDeploy -s .maven/settings.xml
 
+    - name: slack notification
+      uses: actions/slack@v2
+      with:
+        status: ${{job.status}}
+        steps: ${{toJson(steps)}}
+        channel: '#github-action-poc'
+      if: always()
+
       env:
+        SLACK_WEBHOOK_URL: ${{secrets.SLACK_WEBHOOK_URL}}
         PLATFORM_USERNAME: ${{ secrets.PLATFORM_USERNAME }}
         PLATFORM_PASSWORD: ${{ secrets.PLATFORM_PASSWORD }}
         NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
