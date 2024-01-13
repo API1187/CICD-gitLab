@@ -49,17 +49,17 @@ jobs:
       - name: Deploy To Dev
         if: github.ref == 'refs/heads/feature/cicd-deployment'
         env:
-          PLATFORM_USERNAME: ${{ secrets.PLATFORM_USERNAME }}
-          PLATFORM_PASSWORD: ${{ secrets.PLATFORM_PASSWORD }}
-          NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
-          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          # PLATFORM_USERNAME: ${{ secrets.PLATFORM_USERNAME }}
+          # PLATFORM_PASSWORD: ${{ secrets.PLATFORM_PASSWORD }}
+          # NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+          # NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+          # SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           environment: Dev
           name: cicd-deployment-dev
           target: "Cloudhub-US-East-2"
           replicas: "1"
           cores: "0.1"
-        run: mvn clean -B deploy -DmuleDeploy -s .maven/settings.xml
+        run: mvn -B deploy -DmuleDeploy -s .maven/settings.xml
 
       - name: Slack Notification
         uses: act10ns/slack@v1
