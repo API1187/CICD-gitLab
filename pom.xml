@@ -4,7 +4,7 @@
 
 	<groupId>com.mycompany</groupId>
 	<artifactId>cicd-jenkins</artifactId>
-	<version>1.0.11</version>
+	<version>1.0.12</version>
 	<packaging>mule-application</packaging>
 
 	<name>cicd-jenkins</name>
@@ -35,7 +35,7 @@
 					<username>${env.PLATFORM_USERNAME}</username>
 					<password>${env.PLATFORM_PASSWORD}</password>
 					<applicationName>cicd-gitAction</applicationName>
-					<environment>Dev</environment>
+					<environment>${env.environment}</environment>
 					<workers>1</workers>
 					<workerType>MICRO</workerType>
 					<objectStoreV2>true</objectStoreV2>
