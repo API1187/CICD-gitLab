@@ -1,25 +1,4 @@
-Skip to content
-API1187
-/
-CICD-gitLab
 
-Type / to search
-
-Code
-Issues
-Pull requests
-Actions
-Projects
-Wiki
-Security
-Insights
-Settings
-cloudhub - build and deploy
-Update maven-publish.yml #53
-Jobs
-Run details
-Workflow file for this run
-.github/workflows/maven-publish.yml at d487d1c
 name: cloudhub - build and deploy
 
 on:
@@ -33,7 +12,7 @@ on:
 jobs:
   buildAndDeploy:
     runs-on: ubuntu-latest
-    environment: dev
+    environment: qa
 
     steps:
     - name: checkout Repository
