@@ -14,7 +14,16 @@ jobs:
   buildAndDeploy:
 
     runs-on: ubuntu-latest
-
+    env:
+        PLATFORM_USERNAME: ${{ secrets.PLATFORM_USERNAME }}
+        PLATFORM_PASSWORD: ${{ secrets.PLATFORM_PASSWORD }}
+        NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+        NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+        environment: 'Dev'
+        name: 'cicd-deployment-dev'
+        #SANDBOX_CLIENT_ID: ${{ secrets.SANDBOX_CLIENT_ID }}
+        #SANDBOX_CLIENT_SECRET: ${{ secrets.SANDBOX_CLIENT_SECRET }}
+        
     steps:
     - name: checkout Repository
       uses: actions/checkout@v3
@@ -27,15 +36,7 @@ jobs:
     - name: Build and deploy with Maven
       run: mvn clean -B deploy -DmuleDeploy -s .maven/settings.xml
 
-      env:
-        PLATFORM_USERNAME: ${{ secrets.PLATFORM_USERNAME }}
-        PLATFORM_PASSWORD: ${{ secrets.PLATFORM_PASSWORD }}
-        NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
-        NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
-        environment: 'Dev'
-        name: 'cicd-deployment-dev'
-        #SANDBOX_CLIENT_ID: ${{ secrets.SANDBOX_CLIENT_ID }}
-        #SANDBOX_CLIENT_SECRET: ${{ secrets.SANDBOX_CLIENT_SECRET }}
+      
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
   #  - name: Update dependency graph
